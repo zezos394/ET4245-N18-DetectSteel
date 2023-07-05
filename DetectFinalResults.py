@@ -2,26 +2,27 @@ import cv2
 import numpy as np
 from ultralytics import YOLO
 
-# Tải mô hình YOLO đã được huấn luyện trước
+
+# Load trained model
 model = YOLO("best.pt")
 
-# Đường dẫn đến ảnh
+# Path to detected image
 image_path = "testImg2.jpg"
 image = cv2.imread(image_path)
 
-# Thay đổi kích thước ảnh để vừa với 640x640 và vẫn giữ tỷ lệ khung hình
+# Change size to fit 640x640 without changing frame scale 
 height, width, _ = image.shape
 max_size = max(height, width)
 scale = 640 / max_size
 resized_image = cv2.resize(image, None, fx=scale, fy=scale)
 
-# Phát hiện đối tượng
+# Detect object (thep)
 predictions = model.predict(resized_image)
 
-# Khởi tạo đếm đối tượng
+# Initiate counting object
 object_count = 0
 
-# Vẽ  trên ảnh đã thay đổi kích thước và hiển thị nhãn
+# Plot resized image and label 
 for prediction in predictions:
     for box in prediction.boxes:
         x_min, y_min, x_max, y_max = box.xyxy[0]
@@ -41,7 +42,7 @@ for prediction in predictions:
 
             object_count += 1
 
-# Hiển thị số lượng đối tượng
+# Show results
 count_steel = f"CountingSteel: {object_count}"
 cv2.putText(resized_image, count_steel, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 
