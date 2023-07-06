@@ -7,7 +7,7 @@ from ultralytics import YOLO
 model = YOLO("best.pt")
 
 # Path to detected image
-image_path = "testImg2.jpg"
+image_path = "testImg1.jpg"
 image = cv2.imread(image_path)
 
 # Change size to fit 640x640 without changing frame scale 
