@@ -7,7 +7,7 @@ from ultralytics import YOLO
 model = YOLO("best.pt")
 
 # Path to detected image
-image_path = "testImg1.jpg"
+image_path = "testImg6.jpg"
 image = cv2.imread(image_path)
 
 # Change size to fit 640x640 without changing frame scale 
@@ -36,9 +36,9 @@ for prediction in predictions:
             labelcount = f"{object_count + 1}" 
             text_size, _ = cv2.getTextSize(labelcount, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)
 
-            text_x = int((x_min + x_max) / 2 - text_size[0] / 2)
-            text_y = int((y_min + y_max) / 2 + text_size[1] / 2)
-            cv2.putText(resized_image, labelcount, (text_x, text_y), cv2.FONT_HERSHEY_SIMPLEX,0.7, (0,0,255),2)
+            text_x = int((x_min + x_max + 10) / 2 - text_size[0] / 2)
+            text_y = int((y_min + y_max - 5) / 2 + text_size[1] / 2)
+            cv2.putText(resized_image, labelcount, (text_x, text_y), cv2.FONT_HERSHEY_SIMPLEX,0.6,(0,0,255),2)
 
             object_count += 1
 
